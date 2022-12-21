@@ -1,4 +1,5 @@
 ﻿using AbandonedMiracle.Api.Entities.Identity;
+using AbandonedMiracle.Api.Entities.Registrations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace AbandonedMiracle.Api.DataAccess;
 
 public class AmDbContext : IdentityDbContext<AmUser, AmRole, Guid>
 {
+    public DbSet<Registration> Registrations { get; set; } = default!;
     public AmDbContext(DbContextOptions<AmDbContext> options) : base(options)
     {
     }
