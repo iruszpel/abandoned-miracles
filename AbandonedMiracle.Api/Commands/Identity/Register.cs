@@ -16,14 +16,14 @@ namespace AbandonedMiracle.Api.Commands.Identity;
 
 public class Register
 {
-    public class Command : IRequest<UserDto>
+    public class Command : IRequest<UserWithTokenDto>
     {
         public string Email { get; set; } = default!;
         public string Password { get; set; } = default!;
         public string ConfirmPassword { get; set; } = default!;
     }
 
-    public class Handler : IRequestHandler<Command, UserDto>
+    public class Handler : IRequestHandler<Command, UserWithTokenDto>
     {
         private readonly UserManager<AmUser> _userManager;
         private readonly IMapper _mapper;
@@ -38,7 +38,7 @@ public class Register
             _jwtService = jwtService;
         }
 
-        public async Task<UserDto> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<UserWithTokenDto> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = new AmUser
             {
@@ -66,7 +66,7 @@ public class Register
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return new UserDto
+            return new UserWithTokenDto
             {
                 Email = user.Email,
                 Token = await _jwtService.GenerateJwtToken(user)

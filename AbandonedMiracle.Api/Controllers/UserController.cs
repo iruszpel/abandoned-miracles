@@ -1,4 +1,5 @@
 ﻿using AbandonedMiracle.Api.Commands.Identity;
+using AbandonedMiracle.Api.Queries.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +25,8 @@ public class UserController : AmController
     }
     
     [HttpGet, Authorize]
-    public async Task<IActionResult> WhoAmI()
+    public async Task<IActionResult> WhoAmI([FromQuery] WhoAmI.Query query)
     {
-        return await HandleAsync(new WhoAmI.Query());
+        return await HandleAsync(query);
     }
 }

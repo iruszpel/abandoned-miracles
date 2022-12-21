@@ -13,13 +13,13 @@ namespace AbandonedMiracle.Api.Commands.Identity;
 
 public class Login
 {
-    public class Command : IRequest<UserDto>
+    public class Command : IRequest<UserWithTokenDto>
     {
         public string Email { get; set; } = default!;
         public string Password { get; set; } = default!;
     }
 
-    public class Handler : IRequestHandler<Command, UserDto>
+    public class Handler : IRequestHandler<Command, UserWithTokenDto>
     {
         private readonly SignInManager<AmUser> _signInManager;
         private readonly IJwtService _jwtService;
@@ -33,7 +33,7 @@ public class Login
             _jwtService = jwtService;
         }
 
-        public async Task<UserDto> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<UserWithTokenDto> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
 
@@ -42,7 +42,7 @@ public class Login
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
             if (result.Succeeded)
-                return new UserDto
+                return new UserWithTokenDto
                 {
                     Email = user.Email,
                     Token = await _jwtService.GenerateJwtToken(user)
