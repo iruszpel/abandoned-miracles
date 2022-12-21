@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace AbandonedMiracle.Api.Commands.Identity;
 
-public class UserLogin
+public class Login
 {
     public class Command : IRequest<UserDto>
     {

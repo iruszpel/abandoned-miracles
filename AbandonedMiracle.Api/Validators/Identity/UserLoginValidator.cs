@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace AbandonedMiracle.Api.Validators.Identity;
 
-public class UserLoginValidator : AbstractValidator<UserLogin.Command>
+public class UserLoginValidator : AbstractValidator<Login.Command>
 {
     public UserLoginValidator()
     {

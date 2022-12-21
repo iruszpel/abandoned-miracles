@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AbandonedMiracle.Api.Validators.Identity;
 
-public class UserRegisterValidator : AbstractValidator<UserRegister.Command>
+public class UserRegisterValidator : AbstractValidator<Register.Command>
 {
     public UserRegisterValidator(UserManager<AmUser> userManager)
     {

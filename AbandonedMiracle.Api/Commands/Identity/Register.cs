@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 
 namespace AbandonedMiracle.Api.Commands.Identity;
 
-public class UserRegister
+public class Register
 {
     public class Command : IRequest<UserDto>
     {
