@@ -2,6 +2,7 @@
 
 public enum RegistrationAnimalType
 {
+    Unknown,
     Cat,
     Dog,
     Opposum,

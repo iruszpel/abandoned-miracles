@@ -12,4 +12,5 @@ public class Registration : Entity
     public string Address { get; set; } = default!;
     public Guid? ImageId { get; set; }
     public RegistrationAnimalType AnimalType { get; set; }
+    public RegistrationProcessingStatus ProcessingStatus { get; set; }
 }

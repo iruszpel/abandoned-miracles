@@ -108,6 +108,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.RegisterValidators();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-us");

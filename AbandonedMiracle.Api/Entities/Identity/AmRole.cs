@@ -4,6 +4,6 @@ namespace AbandonedMiracle.Api.Entities.Identity;
 
 public class AmRole : IdentityRole<Guid>
 {
-    public static readonly string RegularUser = "Regular User";
-    public static readonly string ServiceWorker = "Service Worker";
+    public const string RegularUser = "Regular User";
+    public const string ServiceWorker = "Service Worker";
 }
