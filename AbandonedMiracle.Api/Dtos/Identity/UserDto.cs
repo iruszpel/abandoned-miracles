@@ -1,6 +1,7 @@
 ﻿namespace AbandonedMiracle.Api.Dtos.Identity;
 
-public class RegularUserDto
+public class UserDto
 {
+    public string Email { get; set; } = default!;
     public string Token { get; set; } = default!;
 }

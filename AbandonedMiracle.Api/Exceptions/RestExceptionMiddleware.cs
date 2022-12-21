@@ -32,7 +32,7 @@ public class RestExceptionMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)ex.StatusCode;
 
-        var result = JsonConvert.SerializeObject(new { Errors = ex.Errors ?? Array.Empty<object>() });
+        var result = JsonConvert.SerializeObject(new { Errors = ex.Errors ?? new Dictionary<string, string[]>() });
         await context.Response.WriteAsync(result);
     }
 }

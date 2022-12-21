@@ -11,7 +11,13 @@ public class RegularUserController : AmController
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] RegularUserLogin.Command command)
+    public async Task<IActionResult> Login([FromBody] UserLogin.Command command)
+    {
+        return await HandleAsync(command);
+    }
+    
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserRegister.Command command)
     {
         return await HandleAsync(command);
     }
