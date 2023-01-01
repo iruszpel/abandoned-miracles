@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'animal.g.dart';
+part 'animal_dto.g.dart';
 
 @JsonSerializable(createToJson: false)
-class Animal {
-  const Animal({
+class AnimalDTO {
+  const AnimalDTO({
     required this.imageUrl,
     required this.location,
   });
@@ -15,5 +15,6 @@ class Animal {
   @JsonKey(name: 'title')
   final String location;
 
-  factory Animal.fromJson(Map<String, dynamic> json) => _$AnimalFromJson(json);
+  factory AnimalDTO.fromJson(Map<String, dynamic> json) =>
+      _$AnimalDTOFromJson(json);
 }

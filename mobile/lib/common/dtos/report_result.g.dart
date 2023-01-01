@@ -1,12 +1,11 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'animal.dart';
+part of 'report_result.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Animal _$AnimalFromJson(Map<String, dynamic> json) => Animal(
-      imageUrl: json['thumbnailUrl'] as String,
-      location: json['title'] as String,
+ReportResult _$ReportResultFromJson(Map<String, dynamic> json) => ReportResult(
+      detectedAnimal: json['detectedAnimal'] as String,
     );

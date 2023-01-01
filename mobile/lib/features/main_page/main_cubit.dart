@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:abandoned_miracles/features/main_page/models/animal.dart';
+import 'package:abandoned_miracles/common/dtos/animal_dto.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
@@ -24,7 +24,7 @@ class MainCubit extends Cubit<MainState> {
     emit(
       MainState.ready(
         (json.decode(result.body) as List<dynamic>)
-            .map((itemData) => Animal.fromJson(itemData))
+            .map((itemData) => AnimalDTO.fromJson(itemData))
             .toList(),
       ),
     );
@@ -35,7 +35,7 @@ class MainCubit extends Cubit<MainState> {
 class MainState with _$MainState {
   const factory MainState.loading() = _Loading;
 
-  const factory MainState.ready(List<Animal> animals) = _Ready;
+  const factory MainState.ready(List<AnimalDTO> animals) = _Ready;
 
   const factory MainState.error() = _Error;
 }

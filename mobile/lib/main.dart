@@ -14,14 +14,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Abandoned miracles',
-      home: MultiProvider(
-        providers: [
-          Provider(create: (context) => Client()),
-          BlocProvider(create: (context) => MainCubit(context.read())..fetch()),
-        ],
-        child: const MainPage(),
+    return Provider(
+      create: (context) => Client(),
+      child: MaterialApp(
+        title: 'Abandoned miracles',
+        home: BlocProvider(
+          create: (context) => MainCubit(context.read())..fetch(),
+          child: const MainPage(),
+        ),
       ),
     );
   }

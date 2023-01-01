@@ -1,4 +1,4 @@
-import 'package:abandoned_miracles/features/main_page/models/animal.dart';
+import 'package:abandoned_miracles/common/dtos/animal_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,7 +8,7 @@ class AnimalView extends StatelessWidget {
     required this.animal,
   });
 
-  final Animal animal;
+  final AnimalDTO animal;
 
   @override
   Widget build(BuildContext context) {

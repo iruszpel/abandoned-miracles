@@ -19,21 +19,21 @@ mixin _$MainState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Animal> animals) ready,
+    required TResult Function(List<AnimalDTO> animals) ready,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Animal> animals)? ready,
+    TResult? Function(List<AnimalDTO> animals)? ready,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Animal> animals)? ready,
+    TResult Function(List<AnimalDTO> animals)? ready,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -117,7 +117,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Animal> animals) ready,
+    required TResult Function(List<AnimalDTO> animals) ready,
     required TResult Function() error,
   }) {
     return loading();
@@ -127,7 +127,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Animal> animals)? ready,
+    TResult? Function(List<AnimalDTO> animals)? ready,
     TResult? Function()? error,
   }) {
     return loading?.call();
@@ -137,7 +137,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Animal> animals)? ready,
+    TResult Function(List<AnimalDTO> animals)? ready,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -191,7 +191,7 @@ abstract class _$$_ReadyCopyWith<$Res> {
   factory _$$_ReadyCopyWith(_$_Ready value, $Res Function(_$_Ready) then) =
       __$$_ReadyCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Animal> animals});
+  $Res call({List<AnimalDTO> animals});
 }
 
 /// @nodoc
@@ -210,7 +210,7 @@ class __$$_ReadyCopyWithImpl<$Res>
       null == animals
           ? _value._animals
           : animals // ignore: cast_nullable_to_non_nullable
-              as List<Animal>,
+              as List<AnimalDTO>,
     ));
   }
 }
@@ -218,11 +218,11 @@ class __$$_ReadyCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Ready implements _Ready {
-  const _$_Ready(final List<Animal> animals) : _animals = animals;
+  const _$_Ready(final List<AnimalDTO> animals) : _animals = animals;
 
-  final List<Animal> _animals;
+  final List<AnimalDTO> _animals;
   @override
-  List<Animal> get animals {
+  List<AnimalDTO> get animals {
     if (_animals is EqualUnmodifiableListView) return _animals;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_animals);
@@ -255,7 +255,7 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Animal> animals) ready,
+    required TResult Function(List<AnimalDTO> animals) ready,
     required TResult Function() error,
   }) {
     return ready(animals);
@@ -265,7 +265,7 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Animal> animals)? ready,
+    TResult? Function(List<AnimalDTO> animals)? ready,
     TResult? Function()? error,
   }) {
     return ready?.call(animals);
@@ -275,7 +275,7 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Animal> animals)? ready,
+    TResult Function(List<AnimalDTO> animals)? ready,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -321,9 +321,9 @@ class _$_Ready implements _Ready {
 }
 
 abstract class _Ready implements MainState {
-  const factory _Ready(final List<Animal> animals) = _$_Ready;
+  const factory _Ready(final List<AnimalDTO> animals) = _$_Ready;
 
-  List<Animal> get animals;
+  List<AnimalDTO> get animals;
   @JsonKey(ignore: true)
   _$$_ReadyCopyWith<_$_Ready> get copyWith =>
       throw _privateConstructorUsedError;
@@ -366,7 +366,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Animal> animals) ready,
+    required TResult Function(List<AnimalDTO> animals) ready,
     required TResult Function() error,
   }) {
     return error();
@@ -376,7 +376,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Animal> animals)? ready,
+    TResult? Function(List<AnimalDTO> animals)? ready,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -386,7 +386,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Animal> animals)? ready,
+    TResult Function(List<AnimalDTO> animals)? ready,
     TResult Function()? error,
     required TResult orElse(),
   }) {
