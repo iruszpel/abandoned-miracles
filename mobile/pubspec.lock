@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  azure_application_insights:
+    dependency: "direct main"
+    description:
+      name: azure_application_insights
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   bloc:
     dependency: "direct main"
     description:

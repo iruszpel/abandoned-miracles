@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:abandoned_miracles/common/dtos/report_request.dart';
 import 'package:abandoned_miracles/common/dtos/report_result.dart';
+import 'package:azure_application_insights/azure_application_insights.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -10,11 +11,13 @@ import 'package:http/http.dart';
 part 'report_cubit.freezed.dart';
 
 class ReportCubit extends Cubit<ReportState> {
-  ReportCubit(this._client) : super(const ReportState.idle());
+  ReportCubit(
+    this._client,
+    this._telemetryClient,
+  ) : super(const ReportState.idle());
 
   final Client _client;
-
-  Future<void> fetch() async {}
+  final TelemetryClient _telemetryClient;
 
   Future<void> onAddressAdded(String address) async {
     final state = this.state;
@@ -89,9 +92,20 @@ class ReportCubit extends Cubit<ReportState> {
           ),
         );
       } else {
+        _telemetryClient.trackError(
+          severity: Severity.error,
+          error: 'Failed to submit report',
+        );
+
         emit(state.copyWith(submitStatus: SubmitStatus.error));
       }
-    } catch (e) {
+    } catch (e, st) {
+      _telemetryClient.trackError(
+        severity: Severity.error,
+        error: e,
+        stackTrace: st,
+      );
+
       emit(state.copyWith(submitStatus: SubmitStatus.error));
     }
   }

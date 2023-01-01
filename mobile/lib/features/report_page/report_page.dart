@@ -132,7 +132,10 @@ class ReportPageRoute extends MaterialPageRoute {
   ReportPageRoute()
       : super(
           builder: (context) => BlocProvider(
-            create: (context) => ReportCubit(context.read()),
+            create: (context) => ReportCubit(
+              context.read(),
+              context.read(),
+            ),
             child: const ReportPage(),
           ),
         );
