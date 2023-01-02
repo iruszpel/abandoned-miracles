@@ -10,27 +10,26 @@ namespace AbandonedMiracle.Api.Controllers;
 [Route("[controller]")]
 public class AmController : ControllerBase
 {
-    protected IMediator Mediator;
+    private readonly IMediator _mediator;
 
     public AmController(IMediator mediator)
     {
-        Mediator = mediator;
+        _mediator = mediator;
     }
 
-    private async Task<ValidationResult> ValidateAsync<T>(T request)
+    private async Task<ValidationResult> ValidateAsync<T>(T request) where T : notnull
     {
-        var validator = HttpContext.RequestServices.GetService(typeof(IValidator<T>)) as IValidator<T>;
-        if (validator is null)
+        if (HttpContext.RequestServices.GetService(typeof(IValidator<T>)) is not IValidator<T> validator)
             return new ValidationResult();
         return await validator.ValidateAsync(request);
     }
 
-    protected async Task<IActionResult> HandleAsync<T>(T request)
+    protected async Task<IActionResult> HandleAsync<T>(T request) where T : notnull
     {
         var validationResult = await ValidateAsync(request);
         if (!validationResult.IsValid)
             return BadRequest(validationResult.Errors.ToErrorResult());
-        var result = await Mediator.Send(request);
+        var result = await _mediator.Send(request);
         return Ok(result);
     }
 }
