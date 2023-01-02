@@ -1,21 +1,21 @@
 ﻿using System.Net;
 using System.Security.Claims;
 using AbandonedMiracle.Api.DataAccess;
-using AbandonedMiracle.Api.Dtos.Registrations;
+using AbandonedMiracle.Api.Dtos.Reports;
 using AbandonedMiracle.Api.Exceptions;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace AbandonedMiracle.Api.Queries.Registrations;
+namespace AbandonedMiracle.Api.Queries.Reports;
 
-public class MyRegistrations
+public class MyReports
 {
-    public class Query : IRequest<IEnumerable<RegistrationDto>>
+    public class Query : IRequest<IEnumerable<ReportDto>>
     {
     }
 
-    public class Handler : IRequestHandler<Query, IEnumerable<RegistrationDto>>
+    public class Handler : IRequestHandler<Query, IEnumerable<ReportDto>>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly AmDbContext _dbContext;
@@ -28,15 +28,15 @@ public class MyRegistrations
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<RegistrationDto>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReportDto>> Handle(Query request, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier),
                     out var userId) || userId == Guid.Empty)
                 throw new RestException(HttpStatusCode.InternalServerError, "User not found");
 
-            var registrations = await _dbContext.Registrations.Where(x => x.RegisteringUserId == userId)
-                .OrderByDescending(x => x.RegistrationDate).ToListAsync(cancellationToken);
-            return _mapper.Map<IEnumerable<RegistrationDto>>(registrations);
+            var Reports = await _dbContext.Reports.Where(x => x.RegisteringUserId == userId)
+                .OrderByDescending(x => x.ReportDate).ToListAsync(cancellationToken);
+            return _mapper.Map<IEnumerable<ReportDto>>(Reports);
         }
     }
 }

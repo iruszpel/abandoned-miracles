@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AbandonedMiracle.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRegistrations : Migration
+    public partial class AddReports : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Registrations",
+                name: "Reports",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     RegisteringUserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    RegistrationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ReportDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
@@ -27,9 +27,9 @@ namespace AbandonedMiracle.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Registrations", x => x.Id);
+                    table.PrimaryKey("PK_Reports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Registrations_AspNetUsers_RegisteringUserId",
+                        name: "FK_Reports_AspNetUsers_RegisteringUserId",
                         column: x => x.RegisteringUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -37,8 +37,8 @@ namespace AbandonedMiracle.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registrations_RegisteringUserId",
-                table: "Registrations",
+                name: "IX_Reports_RegisteringUserId",
+                table: "Reports",
                 column: "RegisteringUserId");
         }
 
@@ -46,7 +46,7 @@ namespace AbandonedMiracle.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Registrations");
+                name: "Reports");
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿using AbandonedMiracle.Api.Commands.Registrations;
+﻿using AbandonedMiracle.Api.Commands.Reports;
 using FluentValidation;
 using FluentValidation.Validators;
 
-namespace AbandonedMiracle.Api.Validators.Registrations;
+namespace AbandonedMiracle.Api.Validators.Reports;
 
-public class CreateRegistrationValidator : AbstractValidator<CreateRegistration.Command>
+public class CreateReportValidator : AbstractValidator<CreateReport.Command>
 {
-    public CreateRegistrationValidator()
+    public CreateReportValidator()
     {
         RuleFor(x => x.Title)
             .NotEmpty()

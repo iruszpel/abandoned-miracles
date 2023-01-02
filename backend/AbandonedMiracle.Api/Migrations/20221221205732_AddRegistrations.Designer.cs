@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbandonedMiracle.Api.Migrations
 {
     [DbContext(typeof(AmDbContext))]
-    [Migration("20221221205732_AddRegistrations")]
-    partial class AddRegistrations
+    [Migration("20221221205732_AddReports")]
+    partial class AddReports
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,7 +126,7 @@ namespace AbandonedMiracle.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AbandonedMiracle.Api.Entities.Registrations.Registration", b =>
+            modelBuilder.Entity("AbandonedMiracle.Api.Entities.Reports.Report", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace AbandonedMiracle.Api.Migrations
                     b.Property<Guid>("RegisteringUserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("RegistrationDate")
+                    b.Property<DateTime>("ReportDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -163,7 +163,7 @@ namespace AbandonedMiracle.Api.Migrations
 
                     b.HasIndex("RegisteringUserId");
 
-                    b.ToTable("Registrations");
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -265,7 +265,7 @@ namespace AbandonedMiracle.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AbandonedMiracle.Api.Entities.Registrations.Registration", b =>
+            modelBuilder.Entity("AbandonedMiracle.Api.Entities.Reports.Report", b =>
                 {
                     b.HasOne("AbandonedMiracle.Api.Entities.Identity.AmUser", "RegisteringUser")
                         .WithMany()

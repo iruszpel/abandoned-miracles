@@ -28,6 +28,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(opt => { opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
 builder.Services.AddSwaggerGen(opt =>
 {
     opt.AddSecurityDefinition(

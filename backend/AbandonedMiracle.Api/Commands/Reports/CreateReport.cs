@@ -1,17 +1,17 @@
 ﻿using System.Net;
 using System.Security.Claims;
 using AbandonedMiracle.Api.DataAccess;
-using AbandonedMiracle.Api.Dtos.Registrations;
-using AbandonedMiracle.Api.Entities.Registrations;
+using AbandonedMiracle.Api.Dtos.Reports;
+using AbandonedMiracle.Api.Entities.Reports;
 using AbandonedMiracle.Api.Exceptions;
 using AutoMapper;
 using MediatR;
 
-namespace AbandonedMiracle.Api.Commands.Registrations;
+namespace AbandonedMiracle.Api.Commands.Reports;
 
-public class CreateRegistration
+public class CreateReport
 {
-    public class Command : IRequest<RegistrationDto>
+    public class Command : IRequest<ReportDto>
     {
         public IFormFile Image { get; set; } = default!;
         public string Title { get; set; } = default!;
@@ -19,7 +19,7 @@ public class CreateRegistration
         public string Address { get; set; } = default!;
     }
 
-    public class Handler : IRequestHandler<Command, RegistrationDto>
+    public class Handler : IRequestHandler<Command, ReportDto>
     {
         private readonly AmDbContext _dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -31,28 +31,28 @@ public class CreateRegistration
             _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
         }
-        public async Task<RegistrationDto> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ReportDto> Handle(Command request, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(_httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier),
                     out var userId) || userId == Guid.Empty)
                 throw new RestException(HttpStatusCode.InternalServerError, "User not found");
 
-            var registration = new Registration()
+            var Report = new Report()
             {
                 RegisteringUserId = userId,
-                RegistrationDate = DateTime.UtcNow,
+                ReportDate = DateTime.UtcNow,
                 Title = request.Title,
                 Description = request.Description,
                 Address = request.Address,
                 ImageId = null,
-                AnimalType = RegistrationAnimalType.Unknown,
-                ProcessingStatus = RegistrationProcessingStatus.Pending
+                AnimalType = ReportAnimalType.Unknown,
+                ProcessingStatus = ReportProcessingStatus.Pending
             };
             
-            _dbContext.Registrations.Add(registration);
+            _dbContext.Reports.Add(Report);
             var success = await _dbContext.SaveChangesAsync(cancellationToken) > 0;
-            if (success) return _mapper.Map<RegistrationDto>(registration);
-            throw new RestException(HttpStatusCode.InternalServerError, "Error saving registration");
+            if (success) return _mapper.Map<ReportDto>(Report);
+            throw new RestException(HttpStatusCode.InternalServerError, "Error saving Report");
         }
     }
 }
