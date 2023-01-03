@@ -11,5 +11,5 @@ public class ReportDto
     public string Latitude { get; set; } = default!;
     public string ImageUrl { get; set; } = default!;
     public ReportAnimalType AnimalType { get; set; }
-    public ReportProcessingStatus ProcessingStatus { get; set; }
+    public ReportStatus Status { get; set; }
 }

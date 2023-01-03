@@ -55,7 +55,7 @@ public class CreateReport
                 Longitude = request.Longitude,
                 Latitude = request.Latitude,
                 AnimalType = ReportAnimalType.Unknown,
-                ProcessingStatus = ReportProcessingStatus.Pending
+                Status = ReportStatus.Open
             };
 
             _dbContext.Reports.Add(report);

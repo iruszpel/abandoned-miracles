@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using AbandonedMiracle.Api.DataAccess;
 using AbandonedMiracle.Api.Entities.Identity;
 using AbandonedMiracle.Api.Exceptions;
@@ -30,6 +31,8 @@ builder.Services.AddControllers()
     .AddJsonOptions(opt =>
     {
         opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

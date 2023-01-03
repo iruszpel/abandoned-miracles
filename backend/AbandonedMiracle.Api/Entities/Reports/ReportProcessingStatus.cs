@@ -1,9 +1,7 @@
 ﻿namespace AbandonedMiracle.Api.Entities.Reports;
 
-public enum ReportProcessingStatus
+public enum ReportStatus
 {
-    Pending,
-    Processing,
-    Completed,
-    Failed
+    Open,
+    Closed
 }

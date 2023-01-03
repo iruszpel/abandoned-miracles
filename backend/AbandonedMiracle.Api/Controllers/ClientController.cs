@@ -19,6 +19,12 @@ public class ClientController : AmController
         return await HandleAsync(new MyReports.Query());
     }
     
+    [HttpGet("reports"), Authorize(Roles = AmRole.RegularUser)]
+    public async Task<IActionResult> GetReports([FromQuery] Reports.Query query)
+    {
+        return await HandleAsync(query);
+    }
+    
     [HttpPost("create-report"), Authorize(Roles = AmRole.RegularUser)]
     public async Task<IActionResult> CreateReport([FromForm] CreateReport.Command command)
     {
