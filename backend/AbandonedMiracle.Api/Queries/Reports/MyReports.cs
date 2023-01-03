@@ -34,9 +34,9 @@ public class MyReports
                     out var userId) || userId == Guid.Empty)
                 throw new RestException(HttpStatusCode.InternalServerError, "User not found");
 
-            var Reports = await _dbContext.Reports.Where(x => x.RegisteringUserId == userId)
+            var reports = await _dbContext.Reports.Where(x => x.ReportingUserId == userId)
                 .OrderByDescending(x => x.ReportDate).ToListAsync(cancellationToken);
-            return _mapper.Map<IEnumerable<ReportDto>>(Reports);
+            return _mapper.Map<IEnumerable<ReportDto>>(reports);
         }
     }
 }
