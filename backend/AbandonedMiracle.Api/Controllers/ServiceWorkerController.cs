@@ -12,7 +12,7 @@ public class ServiceWorkerController : AmController
     {
     }
     
-    [HttpPost, Authorize(Roles = AmRole.ServiceWorker)]
+    [HttpPost("close-report"), Authorize(Roles = AmRole.ServiceWorker)]
     public async Task<IActionResult> CloseReport([FromBody] CloseReport.Command command)
     {
         return await HandleAsync(command);

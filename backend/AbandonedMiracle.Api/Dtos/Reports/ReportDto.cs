@@ -4,6 +4,7 @@ namespace AbandonedMiracle.Api.Dtos.Reports;
 
 public class ReportDto
 {
+    public Guid Id { get; set; }
     public DateTime ReportDate { get; set; }
     public string Description { get; set; } = default!;
     public string Address { get; set; } = default!;
