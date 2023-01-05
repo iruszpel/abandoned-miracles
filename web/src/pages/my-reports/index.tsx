@@ -1,4 +1,4 @@
-import { Button, Modal, Table, Tooltip } from "antd";
+import { Button, Modal, Table } from "antd";
 import { FunctionComponent, useState } from "react";
 import { Typography } from "antd";
 
@@ -11,7 +11,30 @@ type Animal = {
   ImageURL: string;
 };
 
-const ReportsPage: FunctionComponent = () => {
+const MyReportsPage: FunctionComponent = () => {
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [animalDetails, setAnimalDetails] = useState<Animal>({
+    key: "",
+    name: "",
+    species: "",
+    color: "",
+    date: "",
+    ImageURL: "",
+  });
+  const { Title } = Typography;
+
+  const handleOk = () => {
+    setIsDetailModalOpen(false);
+  };
+
+  const handleDelete = () => {
+    setIsDetailModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsDetailModalOpen(false);
+  };
+
   const dataSource = [
     {
       key: "1",
@@ -70,39 +93,15 @@ const ReportsPage: FunctionComponent = () => {
       title: "Zdjęcie",
       dataIndex: "ImageURL",
       render: (theImageURL: string) => (
-        <Tooltip title="Powiększ zdjęcie">
-          <img alt={theImageURL} src={theImageURL} width="300" height="200" />
-        </Tooltip>
+        <img alt={theImageURL} src={theImageURL} width="300" height="200" />
       ),
       width: "35%",
     },
   ];
 
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [animalDetails, setAnimalDetails] = useState<Animal>({
-    key: "",
-    name: "",
-    species: "",
-    color: "",
-    date: "",
-    ImageURL: "",
-  });
-  const { Title } = Typography;
-
-  const handleOk = () => {
-    setIsDetailModalOpen(false);
-    setIsImageModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsDetailModalOpen(false);
-    setIsImageModalOpen(false);
-  };
-
   return (
     <>
-      <Title level={1}>Zgłoszenia</Title>
+      <Title level={1}>Moje zgłoszenia</Title>
       <Table
         dataSource={dataSource}
         columns={columns}
@@ -111,11 +110,7 @@ const ReportsPage: FunctionComponent = () => {
         onRow={(record, rowIndex) => {
           return {
             onClick: (event) => {
-              if (event.target.toString() === "[object HTMLImageElement]") {
-                setIsImageModalOpen(true);
-              } else {
-                setIsDetailModalOpen(true);
-              }
+              setIsDetailModalOpen(true);
               setAnimalDetails(record);
             },
           };
@@ -127,7 +122,10 @@ const ReportsPage: FunctionComponent = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={[
-          <Button key="submit" type="primary" onClick={handleOk}>
+          <Button key="submit" type="dashed" onClick={handleOk}>
+            Usuń
+          </Button>,
+          <Button key="delete" type="primary" onClick={handleDelete}>
             Ok
           </Button>,
         ]}
@@ -142,28 +140,8 @@ const ReportsPage: FunctionComponent = () => {
           height="200"
         />
       </Modal>
-
-      <Modal
-        title={animalDetails.name}
-        open={isImageModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={"50%"}
-        footer={[
-          <Button key="submit" type="primary" onClick={handleOk}>
-            Ok
-          </Button>,
-        ]}
-      >
-        <img
-          alt={animalDetails.ImageURL}
-          src={animalDetails.ImageURL}
-          width="100%"
-          height="100%"
-        />
-      </Modal>
     </>
   );
 };
 
-export default ReportsPage;
+export default MyReportsPage;

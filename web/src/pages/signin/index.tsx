@@ -22,7 +22,7 @@ const SignInPage: FunctionComponent = () => {
     },
     onSuccess: (data) => {
       console.log(data);
-      if (loginManager.handleSignInResponse(data)) navigate("/zgloszenia");
+      if (loginManager.handleSignInResponse(data)) navigate("/mojezgloszenia");
     },
   });
 
