@@ -12,6 +12,8 @@ import loginManager from "./utils/auth/loginManager";
 import { API_URL } from "./utils/vars";
 import MyReportsPage from "./pages/my-reports";
 import ReportDetailsPage from "./pages/reports/[id]";
+import { AppInsightsContext } from "@microsoft/applicationinsights-react-js";
+import { appInsightsPlugin } from "./appInsights/appInsights.config";
 
 export const queryClient = new QueryClient();
 
@@ -26,28 +28,30 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AppLayout>
-          <Routes>
-            <Route element={<></>} path="/" />
-            <Route element={<SignInPage />} path="/signin" />
-            <Route element={<SignUpPage />} path="/signup" />
-            <Route element={<ReportsPage />} path="/zgloszenia" />
-            <Route element={<MyReportsPage />} path="/mojezgloszenia" />
-            <Route element={<ReportDetailsPage />} path="/zgloszenia/:id" />
-            <Route
-              element={
-                <Result
-                  status="404"
-                  subTitle="Sorry, the page you visited does not exist."
-                  title="404"
-                />
-              }
-              path="*"
-            />
-          </Routes>
-        </AppLayout>
-      </BrowserRouter>
+      <AppInsightsContext.Provider value={appInsightsPlugin}>
+        <BrowserRouter>
+          <AppLayout>
+            <Routes>
+              <Route element={<></>} path="/" />
+              <Route element={<SignInPage />} path="/signin" />
+              <Route element={<SignUpPage />} path="/signup" />
+              <Route element={<ReportsPage />} path="/zgloszenia" />
+              <Route element={<MyReportsPage />} path="/mojezgloszenia" />
+              <Route element={<ReportDetailsPage />} path="/zgloszenia/:id" />
+              <Route
+                element={
+                  <Result
+                    status="404"
+                    subTitle="Sorry, the page you visited does not exist."
+                    title="404"
+                  />
+                }
+                path="*"
+              />
+            </Routes>
+          </AppLayout>
+        </BrowserRouter>
+      </AppInsightsContext.Provider>
     </QueryClientProvider>
   );
 }

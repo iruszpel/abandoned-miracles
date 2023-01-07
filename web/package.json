@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "4.8.0",
+    "@microsoft/applicationinsights-react-js": "3.4.0",
+    "@microsoft/applicationinsights-web": "2.8.9",
     "@tanstack/react-query": "4.19.1",
     "antd": "5.0.3",
     "axios": "1.2.2",

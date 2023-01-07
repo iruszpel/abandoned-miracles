@@ -1,10 +1,20 @@
-import { Button, Descriptions, Divider, Modal, Table, Tooltip } from "antd";
+import {
+  Button,
+  Descriptions,
+  Divider,
+  message,
+  Modal,
+  Popconfirm,
+  Table,
+  Tag,
+  Tooltip,
+} from "antd";
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { Typography } from "antd";
 import { Report } from "../../../types/Report";
 import type { TablePaginationConfig } from "antd/es/table";
-import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
   AzureMap,
@@ -20,6 +30,7 @@ import {
   HtmlMarkerOptions,
 } from "azure-maps-control";
 import { PushpinOutlined } from "@ant-design/icons";
+import { queryClient } from "../../../App";
 
 interface TableParams {
   pagination?: TablePaginationConfig;
@@ -39,10 +50,11 @@ const { Title } = Typography;
 
 const ReportDetailsPage: FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const { data } = useQuery<{ data: { items: Report[] } }>({
     queryKey: ["reports"],
-    queryFn: () => {
+    queryFn: (data) => {
       return axios.get(`/client/reports`, {
         params: {
           pageNumber: 1,
@@ -50,10 +62,27 @@ const ReportDetailsPage: FunctionComponent = () => {
         },
       });
     },
+  });
+
+  const closeReportMutation = useMutation({
+    mutationFn: (report: { reportId: string }) => {
+      return axios.post(`/serviceworker/close-report`, {
+        reportId: report.reportId,
+      });
+    },
     onSuccess: (data) => {
-      console.log(data);
+      message.success("Zgłoszenie zostało zamknięte");
+      queryClient.invalidateQueries(["reports"]);
+      navigate("/mojezgloszenia");
+    },
+    onError: (error) => {
+      message.error("Nie udało się zamknąć zgłoszenia");
     },
   });
+
+  const onClose = async (report: { reportId: string }) => {
+    closeReportMutation.mutate({ reportId: report.reportId });
+  };
 
   const reports = data?.data?.items;
 
@@ -80,7 +109,15 @@ const ReportDetailsPage: FunctionComponent = () => {
   return (
     <div>
       <Title level={2}>Szczegóły zgłoszenia</Title>
-      <Descriptions bordered title="Informacje o zgłoszeniu">
+      <Descriptions
+        bordered
+        title="Informacje o zgłoszeniu"
+        extra={
+          <Tag color={reportDetails?.status === "Open" ? "green" : "red"}>
+            {reportDetails?.status === "Open" ? "Otwarte" : "Zamknięte"}
+          </Tag>
+        }
+      >
         <Descriptions.Item label="Adres">
           {reportDetails?.address}
         </Descriptions.Item>
@@ -155,6 +192,13 @@ const ReportDetailsPage: FunctionComponent = () => {
           </AzureMapsProvider>
         </div>
       )}
+      <Divider />
+      <Popconfirm
+        title="Czy na pewno chcesz zamknąć zgłoszenie?"
+        onConfirm={() => onClose({ reportId: reportDetails?.id! })}
+      >
+        <Button danger>Zamknij zgłoszenie</Button>
+      </Popconfirm>
     </div>
   );
 };
