@@ -16,7 +16,7 @@ const SignUpPage: FunctionComponent = () => {
       return axios.post(`/User/register`, user);
     },
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       if (loginManager.handleSignUpResponse(data)) navigate("/signin");
     },
   });

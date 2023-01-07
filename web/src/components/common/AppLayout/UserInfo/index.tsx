@@ -10,7 +10,7 @@ const UserBalance: FunctionComponent = () => {
       return axios.get(`/User`);
     },
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
     },
   });
 

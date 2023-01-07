@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { RadarChartOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, Space } from "antd";
 import Sider from "antd/lib/layout/Sider";
@@ -19,11 +19,32 @@ type AppLayoutProps = {
   children: React.ReactNode;
 };
 
-const menuItems = [
+const menuItemsLoggedOut = [
+  {
+    key: "zgloszenia",
+    link: "/signin",
+    title: "Zgłoszenia",
+    icon: <RadarChartOutlined />,
+  },
+  {
+    key: "mojezgloszenia",
+    link: "/signin",
+    title: "Moje zgłoszenia",
+    icon: <RadarChartOutlined />,
+  },
+] as const;
+
+const menuItemsLoggedIn = [
   {
     key: "zgloszenia",
     link: "/zgloszenia",
     title: "Zgłoszenia",
+    icon: <RadarChartOutlined />,
+  },
+  {
+    key: "mojezgloszenia",
+    link: "/mojezgloszenia",
+    title: "Moje zgłoszenia",
     icon: <RadarChartOutlined />,
   },
 ] as const;
@@ -42,11 +63,17 @@ const AppLayout: FunctionComponent<AppLayoutProps> = ({ children }) => {
           mode="inline"
           theme="light"
         >
-          {menuItems.map(({ key, title, link, icon }) => (
-            <Menu.Item key={key} icon={icon}>
-              <Link to={link}>{title}</Link>
-            </Menu.Item>
-          ))}
+          {localStorage.getItem("user")
+            ? menuItemsLoggedIn.map(({ key, title, link, icon }) => (
+                <Menu.Item key={key} icon={icon}>
+                  <Link to={link}>{title}</Link>
+                </Menu.Item>
+              ))
+            : menuItemsLoggedOut.map(({ key, title, link, icon }) => (
+                <Menu.Item key={key} icon={icon}>
+                  <Link to={link}>{title}</Link>
+                </Menu.Item>
+              ))}
         </Menu>
         <Space
           direction="vertical"

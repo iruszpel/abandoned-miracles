@@ -21,8 +21,8 @@ const SignInPage: FunctionComponent = () => {
       return axios.post<SignInResponse>(`/User/login`, user);
     },
     onSuccess: (data) => {
-      console.log(data);
-      if (loginManager.handleSignInResponse(data)) navigate("/zgloszenia");
+      // console.log(data);
+      if (loginManager.handleSignInResponse(data)) navigate("/mojezgloszenia");
     },
   });
 
