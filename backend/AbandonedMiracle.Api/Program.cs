@@ -9,12 +9,12 @@ using AbandonedMiracle.Api.Helpers;
 using AbandonedMiracle.Api.Services;
 using AbandonedMiracle.Api.Settings;
 using AbandonedMiracle.Api.Tasks;
+using Azure.Identity;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -23,6 +23,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var jwtSettings = new JwtSettings();
+
+if (builder.Environment.IsProduction())
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri(builder.Configuration["KeyVault:Uri"]),
+        new DefaultAzureCredential());
+}
+
 builder.Configuration.GetSection(JwtSettings.Section).Bind(jwtSettings);
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.Section));
@@ -90,12 +98,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
 
 builder.Services.AddDbContext<AmDbContext>(options =>
 {
-    if(builder.Environment.IsDevelopment())
-        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-    else
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    }
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services
@@ -109,12 +112,8 @@ builder.Services
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateAudience = true,
-            ValidateIssuer = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
         };
     });
 
