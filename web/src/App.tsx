@@ -11,6 +11,7 @@ import axios from "axios";
 import loginManager from "./utils/auth/loginManager";
 import { API_URL } from "./utils/vars";
 import MyReportsPage from "./pages/my-reports";
+import ReportDetailsPage from "./pages/reports/[id]";
 
 export const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ function App() {
             <Route element={<SignUpPage />} path="/signup" />
             <Route element={<ReportsPage />} path="/zgloszenia" />
             <Route element={<MyReportsPage />} path="/mojezgloszenia" />
+            <Route element={<ReportDetailsPage />} path="/zgloszenia/:id" />
             <Route
               element={
                 <Result
