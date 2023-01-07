@@ -1,7 +1,8 @@
-import { Button, Modal, Table } from "antd";
+import { Button, Modal, Table, Tag } from "antd";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Typography } from "antd";
 import { Report } from "../../types/Report";
+import { API_URL } from "../../utils/vars";
 
 const MyReportsPage: FunctionComponent = () => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -32,7 +33,7 @@ const MyReportsPage: FunctionComponent = () => {
   };
 
   async function fetchReports() {
-    const response = await fetch("http://localhost:5029/client/my-reports", {
+    const response = await fetch(`${API_URL}/client/my-reports`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -94,6 +95,15 @@ const MyReportsPage: FunctionComponent = () => {
       ),
       width: "35%",
     },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: "15%",
+      render: (status: string) => (
+        <Tag color={status == "Open" ? "green" : "red"}>{status}</Tag>
+      ),
+    },
   ];
 
   return (
@@ -147,7 +157,8 @@ const MyReportsPage: FunctionComponent = () => {
         <p>Miejsce zdarzenia: {reportDetail.address}</p>
         <p>Data utworzenia: {reportDetail.reportDate}</p>
         <p>
-          Status zgłoszenia: {reportDetail.status == "Open" ? "Aktalne" : "Nieaktualne"}
+          Status zgłoszenia:{" "}
+          {reportDetail.status == "Open" ? "Aktalne" : "Nieaktualne"}
         </p>
         <img
           alt={reportDetail.animalType}

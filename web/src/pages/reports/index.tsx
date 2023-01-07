@@ -3,6 +3,9 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { Typography } from "antd";
 import { Report } from "../../types/Report";
 import type { TablePaginationConfig } from "antd/es/table";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface TableParams {
   pagination?: TablePaginationConfig;
@@ -36,9 +39,15 @@ const ReportsPage: FunctionComponent = () => {
       ),
       width: "35%",
     },
+    {
+      width: "10%",
+      dataIndex: "id",
+      render: (id: string) => (
+        <Link to={`/zgloszenia/${id}`}>Pokaż szczegóły</Link>
+      ),
+    },
   ];
 
-  const [reports, setReports] = useState<Report[]>([]);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [reportDetail, setReportDetails] = useState<Report>({
@@ -61,50 +70,28 @@ const ReportsPage: FunctionComponent = () => {
     },
   });
 
-  async function fetchReports() {
-    const response = await fetch(
-      `http://localhost:5029/client/reports?PageNumber=1&PageSize=${tableParams.pagination?.pageSize}`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + localStorage.getItem("user"),
-        },
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    setTableParams({
-      ...tableParams,
-      pagination: {
-        ...tableParams.pagination,
-        total: data.totalItems,
-      },
-    });
-
-    setReports(data.items);
-  }
-
   const handleTableChange = (pagination: TablePaginationConfig) => {
     setTableParams({
       pagination,
     });
-
-    // `dataSource` is useless since `pageSize` changed
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      setReports([]);
-    }
   };
 
-  useEffect(() => {
-    fetchReports();
-  }, [JSON.stringify(tableParams)]);
+  const { data } = useQuery<{ data: { items: Report[] } }>({
+    queryKey: ["reports"],
+    queryFn: () => {
+      return axios.get(`/client/reports`, {
+        params: {
+          pageNumber: tableParams.pagination?.current,
+          pageSize: tableParams.pagination?.pageSize,
+        },
+      });
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
+  const reports = data?.data?.items;
 
   const handleOk = () => {
     setIsDetailModalOpen(false);
