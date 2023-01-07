@@ -91,7 +91,7 @@ const MyReportsPage: FunctionComponent = () => {
       title: "Zdjęcie",
       dataIndex: "imageUrl",
       render: (imageUrl: string) => (
-        <img alt={imageUrl} src={imageUrl} width="300" height="200" />
+        <img alt={imageUrl} src={imageUrl} width="250" height="250" />
       ),
       width: "35%",
     },
@@ -163,8 +163,8 @@ const MyReportsPage: FunctionComponent = () => {
         <img
           alt={reportDetail.animalType}
           src={reportDetail.imageUrl}
-          width="400"
-          height="200"
+          width="250"
+          height="250"
         />
       </Modal>
     </>

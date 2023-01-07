@@ -131,8 +131,8 @@ const ReportDetailsPage: FunctionComponent = () => {
           <img
             alt={reportDetails?.imageUrl}
             src={reportDetails?.imageUrl}
-            width="300"
-            height="200"
+            width="250"
+            height="250"
           />
         </Descriptions.Item>
 
