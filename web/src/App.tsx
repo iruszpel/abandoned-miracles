@@ -18,13 +18,11 @@ import { appInsightsPlugin } from "./appInsights/appInsights.config";
 export const queryClient = new QueryClient();
 
 function App() {
-  useEffect(() => {
-    axios.defaults.baseURL = API_URL;
-    axios.defaults.headers.common["Content-Type"] = "application/json";
-    loginManager.authorizationHeader &&
-      (axios.defaults.headers.common["Authorization"] =
-        loginManager.authorizationHeader);
-  }, []);
+  axios.defaults.baseURL = API_URL;
+  axios.defaults.headers.common["Content-Type"] = "application/json";
+  loginManager.authorizationHeader &&
+    (axios.defaults.headers.common["Authorization"] =
+      loginManager.authorizationHeader);
 
   return (
     <QueryClientProvider client={queryClient}>
