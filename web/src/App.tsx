@@ -3,7 +3,7 @@ import AppLayout from "./components/common/AppLayout";
 import { Route, Routes } from "react-router";
 import { Result } from "antd";
 import React, { useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Navigate } from "react-router-dom";
 import SignInPage from "./pages/signin";
 import ReportsPage from "./pages/reports";
 import SignUpPage from "./pages/signup";
@@ -32,7 +32,7 @@ function App() {
         <BrowserRouter>
           <AppLayout>
             <Routes>
-              <Route element={<></>} path="/" />
+              <Route element={<Navigate to="/zgloszenia" />} path="/" />
               <Route element={<SignInPage />} path="/signin" />
               <Route element={<SignUpPage />} path="/signup" />
               <Route element={<ReportsPage />} path="/zgloszenia" />

@@ -76,7 +76,7 @@ const ReportsPage: FunctionComponent = () => {
     });
   };
 
-  const { data } = useQuery<{ data: { items: Report[] } }>({
+  const { data, isLoading } = useQuery<{ data: { items: Report[] } }>({
     queryKey: ["reports"],
     queryFn: () => {
       return axios.get(`/client/reports`, {
@@ -110,6 +110,7 @@ const ReportsPage: FunctionComponent = () => {
         sticky={true}
         dataSource={reports}
         columns={columns}
+        loading={isLoading}
         pagination={tableParams.pagination}
         rowKey={(record) => record.id}
         onChange={handleTableChange}

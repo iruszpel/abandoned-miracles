@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from "react";
-import { RadarChartOutlined } from "@ant-design/icons";
+import { RadarChartOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, Space } from "antd";
 import Sider from "antd/lib/layout/Sider";
 import { Link, useMatch } from "react-router-dom";
@@ -30,7 +30,7 @@ const menuItemsLoggedOut = [
     key: "mojezgloszenia",
     link: "/signin",
     title: "Moje zgłoszenia",
-    icon: <RadarChartOutlined />,
+    icon: <UserOutlined />,
   },
 ] as const;
 
@@ -45,7 +45,7 @@ const menuItemsLoggedIn = [
     key: "mojezgloszenia",
     link: "/mojezgloszenia",
     title: "Moje zgłoszenia",
-    icon: <RadarChartOutlined />,
+    icon: <UserOutlined />,
   },
 ] as const;
 
