@@ -33,6 +33,8 @@ jobs:
           ###### End of Repository/Build Configurations ######
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_APPINSIGHTS_CONNECTION_STRING: ${{ secrets.VITE_APPINSIGHTS_CONNECTION_STRING }}
+          VITE_AZURE_MAPS_KEY: ${{ secrets.VITE_AZURE_MAPS_KEY }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
