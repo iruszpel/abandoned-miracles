@@ -5,5 +5,5 @@ public enum ReportAnimalType
     Unknown,
     Cat,
     Dog,
-    Opposum,
+    Racoon,
 }

@@ -43,7 +43,15 @@ public class CreateReport
                     out var userId) || userId == Guid.Empty)
                 throw new RestException(HttpStatusCode.InternalServerError, "User not found");
 
-            var imageUrl = await _imageService.UploadImageAsync(request.Base64Image);
+            string imageUrl;
+            try
+            {
+                imageUrl = await _imageService.UploadImageAsync(request.Base64Image);
+            }
+            catch (Exception)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, "Invalid image format");
+            }
 
             var report = new Report()
             {
@@ -55,7 +63,8 @@ public class CreateReport
                 Longitude = request.Longitude,
                 Latitude = request.Latitude,
                 AnimalType = ReportAnimalType.Unknown,
-                Status = ReportStatus.Open
+                Status = ReportStatus.Open,
+                Processed = false
             };
 
             _dbContext.Reports.Add(report);

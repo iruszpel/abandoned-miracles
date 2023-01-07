@@ -8,6 +8,7 @@ using AbandonedMiracle.Api.Exceptions;
 using AbandonedMiracle.Api.Helpers;
 using AbandonedMiracle.Api.Services;
 using AbandonedMiracle.Api.Settings;
+using AbandonedMiracle.Api.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -89,7 +90,12 @@ builder.Services.Configure<IdentityOptions>(opt =>
 
 builder.Services.AddDbContext<AmDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    if(builder.Environment.IsDevelopment())
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    else
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
 });
 
 builder.Services
@@ -120,6 +126,8 @@ builder.Services.RegisterValidators();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+
+builder.Services.AddHostedService<ClassifyPhotosTask>();
 
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-us");
 
