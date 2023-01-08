@@ -12,10 +12,12 @@ part 'report_cubit.freezed.dart';
 
 class ReportCubit extends Cubit<ReportState> {
   ReportCubit(
+    this._token,
     this._client,
     this._telemetryClient,
   ) : super(const ReportState.idle());
 
+  final String _token;
   final Client _client;
   final TelemetryClient _telemetryClient;
 

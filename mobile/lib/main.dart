@@ -1,3 +1,5 @@
+import 'package:abandoned_miracles/features/auth_page/auth_cubit.dart';
+import 'package:abandoned_miracles/features/auth_page/auth_page.dart';
 import 'package:abandoned_miracles/features/main_page/main_cubit.dart';
 import 'package:abandoned_miracles/features/main_page/main_page.dart';
 import 'package:azure_application_insights/azure_application_insights.dart';
@@ -32,8 +34,8 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Abandoned miracles',
         home: BlocProvider(
-          create: (context) => MainCubit(context.read())..fetch(),
-          child: const MainPage(),
+          create: (context) => AuthCubit(context.read(), Navigator.of(context)),
+          child: const AuthPage(),
         ),
       ),
     );

@@ -8,8 +8,9 @@ import 'package:http/http.dart';
 part 'main_cubit.freezed.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit(this._client) : super(const MainState.loading());
+  MainCubit(this._token, this._client) : super(const MainState.loading());
 
+  final String _token;
   final Client _client;
 
   Future<void> fetch() async {

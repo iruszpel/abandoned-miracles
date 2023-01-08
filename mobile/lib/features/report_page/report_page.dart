@@ -129,10 +129,11 @@ class ReportPage extends StatelessWidget {
 }
 
 class ReportPageRoute extends MaterialPageRoute {
-  ReportPageRoute()
+  ReportPageRoute(String token)
       : super(
           builder: (context) => BlocProvider(
             create: (context) => ReportCubit(
+              token,
               context.read(),
               context.read(),
             ),

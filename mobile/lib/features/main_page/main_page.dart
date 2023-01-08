@@ -7,7 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  const MainPage({
+    super.key,
+    required this.token,
+  });
+
+  final String token;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(ReportPageRoute()),
+        onPressed: () => Navigator.of(context).push(ReportPageRoute(token)),
         child: const Icon(Icons.add),
       ),
       body: state.map(
@@ -34,4 +39,17 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class MainPageRoute extends MaterialPageRoute {
+  MainPageRoute(String token)
+      : super(
+          builder: (context) => BlocProvider(
+            create: (context) => MainCubit(
+              token,
+              context.read(),
+            )..fetch(),
+            child: MainPage(token: token),
+          ),
+        );
 }
