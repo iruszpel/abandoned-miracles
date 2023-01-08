@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'animal_dto.dart';
+part of 'report_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AnimalDTO _$AnimalDTOFromJson(Map<String, dynamic> json) => AnimalDTO(
-      imageUrl: json['thumbnailUrl'] as String,
-      location: json['title'] as String,
+ReportDTO _$ReportDTOFromJson(Map<String, dynamic> json) => ReportDTO(
+      imageUrl: json['imageUrl'] as String,
+      address: json['address'] as String,
+      status: json['status'] as String,
     );

@@ -1,14 +1,14 @@
-import 'package:abandoned_miracles/common/dtos/animal_dto.dart';
+import 'package:abandoned_miracles/common/dtos/report_dto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
-class AnimalView extends StatelessWidget {
-  const AnimalView({
+class ReportView extends StatelessWidget {
+  const ReportView({
     super.key,
-    required this.animal,
+    required this.report,
   });
 
-  final AnimalDTO animal;
+  final ReportDTO report;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,11 @@ class AnimalView extends StatelessWidget {
           CachedNetworkImage(
             height: 300,
             fit: BoxFit.cover,
-            imageUrl: animal.imageUrl,
+            imageUrl: report.imageUrl,
           ),
           const SizedBox(height: 16),
           Text(
-            animal.location,
+            report.isOpen ? 'Otwarte' : 'Zamknięte',
             overflow: TextOverflow.ellipsis,
           ),
         ],

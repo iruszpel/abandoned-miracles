@@ -1,7 +1,7 @@
 import 'package:abandoned_miracles/common/widgets/error_view.dart';
 import 'package:abandoned_miracles/common/widgets/loading_view.dart';
 import 'package:abandoned_miracles/features/main_page/main_cubit.dart';
-import 'package:abandoned_miracles/features/main_page/widgets/animal_view.dart';
+import 'package:abandoned_miracles/features/main_page/widgets/report_view.dart';
 import 'package:abandoned_miracles/features/report_page/report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +28,9 @@ class MainPage extends StatelessWidget {
         ready: (state) => RefreshIndicator(
           onRefresh: context.watch<MainCubit>().fetch,
           child: ListView.separated(
-            itemCount: state.animals.length,
-            itemBuilder: (context, index) => AnimalView(
-              animal: state.animals[index],
+            itemCount: state.reports.length,
+            itemBuilder: (context, index) => ReportView(
+              report: state.reports[index],
             ),
             separatorBuilder: (context, index) => const Divider(height: 1),
           ),

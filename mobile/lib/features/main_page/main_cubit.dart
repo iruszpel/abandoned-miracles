@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:abandoned_miracles/common/dtos/animal_dto.dart';
+import 'package:abandoned_miracles/common/dtos/report_dto.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
@@ -14,8 +14,11 @@ class MainCubit extends Cubit<MainState> {
   final Client _client;
 
   Future<void> fetch() async {
-    final result = await _client
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+    final result = await _client.get(
+      Uri.parse(
+          'https://abandonedmiraclebackend.azurewebsites.net/client/my-reports'),
+      headers: {'Authorization': 'Bearer $_token'},
+    );
 
     if (result.statusCode != 200) {
       emit(const MainState.error());
@@ -25,7 +28,7 @@ class MainCubit extends Cubit<MainState> {
     emit(
       MainState.ready(
         (json.decode(result.body) as List<dynamic>)
-            .map((itemData) => AnimalDTO.fromJson(itemData))
+            .map((itemData) => ReportDTO.fromJson(itemData))
             .toList(),
       ),
     );
@@ -36,7 +39,7 @@ class MainCubit extends Cubit<MainState> {
 class MainState with _$MainState {
   const factory MainState.loading() = _Loading;
 
-  const factory MainState.ready(List<AnimalDTO> animals) = _Ready;
+  const factory MainState.ready(List<ReportDTO> reports) = _Ready;
 
   const factory MainState.error() = _Error;
 }
