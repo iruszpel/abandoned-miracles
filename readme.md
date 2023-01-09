@@ -14,4 +14,4 @@ Agnieszka Stefankowska
 ![alt text](https://github.com/iruszpel/abandoned-miracles/blob/main/images/Architektura.png)
 
 ## Demo
-![Demo](https://youtu.be/vZZ12LQf1Q8)
+[Demo](https://youtu.be/vZZ12LQf1Q8)
