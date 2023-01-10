@@ -38,6 +38,7 @@ class _AuthPageState extends State<AuthPage> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Hasło'),
                 controller: _passwordController,
+                obscureText: true,
               ),
               const SizedBox(height: 16),
               ElevatedButton(

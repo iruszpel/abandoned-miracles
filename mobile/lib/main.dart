@@ -1,7 +1,5 @@
 import 'package:abandoned_miracles/features/auth_page/auth_cubit.dart';
 import 'package:abandoned_miracles/features/auth_page/auth_page.dart';
-import 'package:abandoned_miracles/features/main_page/main_cubit.dart';
-import 'package:abandoned_miracles/features/main_page/main_page.dart';
 import 'package:azure_application_insights/azure_application_insights.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

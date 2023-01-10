@@ -17,9 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await _client.post(
       Uri.parse(
           'https://abandonedmiraclebackend.azurewebsites.net/user/register'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'email': email,
         'password': password,

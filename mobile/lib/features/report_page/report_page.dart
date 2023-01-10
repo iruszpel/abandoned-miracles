@@ -29,39 +29,45 @@ class ReportPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(title: const Text('Zgłoś zwierzę')),
-        body: SingleChildScrollView(
-          child: state.map(
-            idle: (state) {
-              if (state.submitStatus == SubmitStatus.loading) {
-                return const Center(
-                    child: Center(child: CircularProgressIndicator()));
-              }
+        body: state.map(
+          idle: (state) {
+            if (state.submitStatus == SubmitStatus.loading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-              return Padding(
+            return SingleChildScrollView(
+              child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    state.imageData != null
-                        ? Image.memory(
-                            state.imageData!,
-                            height: 300,
-                            fit: BoxFit.cover,
-                          )
-                        : InkWell(
-                            onTap: () => _onAddImage(context),
-                            child: Container(
-                              height: 300,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
+                    AspectRatio(
+                      aspectRatio: 1,
+                      child: state.imageData != null
+                          ? Image.memory(
+                              state.imageData!,
+                              fit: BoxFit.cover,
+                            )
+                          : InkWell(
+                              onTap: () => _onAddImage(context),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                ),
+                                alignment: Alignment.center,
+                                child: const Text('Dodaj zdjęcie'),
                               ),
-                              alignment: Alignment.center,
-                              child: const Text('Dodaj zdjęcie'),
                             ),
-                          ),
+                    ),
                     const SizedBox(width: 16),
                     TextFormField(
-                      key: ValueKey(state.address),
+                      initialValue: state.description,
+                      decoration: const InputDecoration(labelText: 'Opis'),
+                      onChanged:
+                          context.watch<ReportCubit>().onDescriptionChanged,
+                    ),
+                    const SizedBox(width: 16),
+                    TextFormField(
                       initialValue: state.address,
                       decoration: const InputDecoration(labelText: 'Adres'),
                       onFieldSubmitted:
@@ -105,18 +111,22 @@ class ReportPage extends StatelessWidget {
                       ),
                   ],
                 ),
-              );
-            },
-            success: (_) =>
-                const Center(child: Center(child: CircularProgressIndicator())),
-          ),
+              ),
+            );
+          },
+          success: (_) =>
+              const Center(child: Center(child: CircularProgressIndicator())),
         ),
       ),
     );
   }
 
   Future<void> _onAddImage(BuildContext context) async {
-    final file = await ImagePicker().pickImage(source: ImageSource.camera);
+    final file = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1000,
+      maxHeight: 1000,
+    );
 
     if (file == null) {
       return;

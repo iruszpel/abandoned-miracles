@@ -4,9 +4,9 @@ part 'report_result.g.dart';
 
 @JsonSerializable(createToJson: false)
 class ReportResult {
-  const ReportResult({required this.detectedAnimal});
+  const ReportResult({required this.animalType});
 
-  final String detectedAnimal;
+  final String animalType;
 
   factory ReportResult.fromJson(Map<String, dynamic> json) =>
       _$ReportResultFromJson(json);

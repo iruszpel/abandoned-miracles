@@ -19,6 +19,7 @@ class MainPage extends StatelessWidget {
     final state = context.watch<MainCubit>().state;
 
     return Scaffold(
+      appBar: AppBar(title: const Text('Moje zgłoszenia')),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(ReportPageRoute(token)),
         child: const Icon(Icons.add),

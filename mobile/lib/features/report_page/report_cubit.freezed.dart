@@ -17,36 +17,47 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ReportState {
   Uint8List? get imageData => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get longitude => throw _privateConstructorUsedError;
   String get latitude => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List? imageData, String address,
-            String longitude, String latitude, SubmitStatus submitStatus)
+    required TResult Function(
+            Uint8List? imageData,
+            String description,
+            String address,
+            String longitude,
+            String latitude,
+            SubmitStatus submitStatus)
         idle,
-    required TResult Function(Uint8List imageData, String address,
-            String longitude, String latitude, String detectedAnimal)
+    required TResult Function(
+            Uint8List imageData,
+            String description,
+            String address,
+            String longitude,
+            String latitude,
+            String detectedAnimal)
         success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Uint8List? imageData, String address, String longitude,
-            String latitude, SubmitStatus submitStatus)?
+    TResult? Function(Uint8List? imageData, String description, String address,
+            String longitude, String latitude, SubmitStatus submitStatus)?
         idle,
-    TResult? Function(Uint8List imageData, String address, String longitude,
-            String latitude, String detectedAnimal)?
+    TResult? Function(Uint8List imageData, String description, String address,
+            String longitude, String latitude, String detectedAnimal)?
         success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List? imageData, String address, String longitude,
-            String latitude, SubmitStatus submitStatus)?
+    TResult Function(Uint8List? imageData, String description, String address,
+            String longitude, String latitude, SubmitStatus submitStatus)?
         idle,
-    TResult Function(Uint8List imageData, String address, String longitude,
-            String latitude, String detectedAnimal)?
+    TResult Function(Uint8List imageData, String description, String address,
+            String longitude, String latitude, String detectedAnimal)?
         success,
     required TResult orElse(),
   }) =>
@@ -83,7 +94,11 @@ abstract class $ReportStateCopyWith<$Res> {
       _$ReportStateCopyWithImpl<$Res, ReportState>;
   @useResult
   $Res call(
-      {Uint8List imageData, String address, String longitude, String latitude});
+      {Uint8List imageData,
+      String description,
+      String address,
+      String longitude,
+      String latitude});
 }
 
 /// @nodoc
@@ -100,6 +115,7 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
   @override
   $Res call({
     Object? imageData = null,
+    Object? description = null,
     Object? address = null,
     Object? longitude = null,
     Object? latitude = null,
@@ -109,6 +125,10 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
           ? _value.imageData!
           : imageData // ignore: cast_nullable_to_non_nullable
               as Uint8List,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -133,6 +153,7 @@ abstract class _$$_IdleCopyWith<$Res> implements $ReportStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Uint8List? imageData,
+      String description,
       String address,
       String longitude,
       String latitude,
@@ -150,6 +171,7 @@ class __$$_IdleCopyWithImpl<$Res>
   @override
   $Res call({
     Object? imageData = freezed,
+    Object? description = null,
     Object? address = null,
     Object? longitude = null,
     Object? latitude = null,
@@ -160,6 +182,10 @@ class __$$_IdleCopyWithImpl<$Res>
           ? _value.imageData
           : imageData // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -185,6 +211,7 @@ class __$$_IdleCopyWithImpl<$Res>
 class _$_Idle extends _Idle with DiagnosticableTreeMixin {
   const _$_Idle(
       {this.imageData,
+      this.description = '',
       this.address = '',
       this.longitude = '',
       this.latitude = '',
@@ -193,6 +220,9 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
 
   @override
   final Uint8List? imageData;
+  @override
+  @JsonKey()
+  final String description;
   @override
   @JsonKey()
   final String address;
@@ -208,7 +238,7 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ReportState.idle(imageData: $imageData, address: $address, longitude: $longitude, latitude: $latitude, submitStatus: $submitStatus)';
+    return 'ReportState.idle(imageData: $imageData, description: $description, address: $address, longitude: $longitude, latitude: $latitude, submitStatus: $submitStatus)';
   }
 
   @override
@@ -217,6 +247,7 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'ReportState.idle'))
       ..add(DiagnosticsProperty('imageData', imageData))
+      ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('longitude', longitude))
       ..add(DiagnosticsProperty('latitude', latitude))
@@ -229,6 +260,8 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _$_Idle &&
             const DeepCollectionEquality().equals(other.imageData, imageData) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
@@ -242,6 +275,7 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(imageData),
+      description,
       address,
       longitude,
       latitude,
@@ -256,42 +290,55 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List? imageData, String address,
-            String longitude, String latitude, SubmitStatus submitStatus)
+    required TResult Function(
+            Uint8List? imageData,
+            String description,
+            String address,
+            String longitude,
+            String latitude,
+            SubmitStatus submitStatus)
         idle,
-    required TResult Function(Uint8List imageData, String address,
-            String longitude, String latitude, String detectedAnimal)
+    required TResult Function(
+            Uint8List imageData,
+            String description,
+            String address,
+            String longitude,
+            String latitude,
+            String detectedAnimal)
         success,
   }) {
-    return idle(imageData, address, longitude, latitude, submitStatus);
+    return idle(
+        imageData, description, address, longitude, latitude, submitStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Uint8List? imageData, String address, String longitude,
-            String latitude, SubmitStatus submitStatus)?
+    TResult? Function(Uint8List? imageData, String description, String address,
+            String longitude, String latitude, SubmitStatus submitStatus)?
         idle,
-    TResult? Function(Uint8List imageData, String address, String longitude,
-            String latitude, String detectedAnimal)?
+    TResult? Function(Uint8List imageData, String description, String address,
+            String longitude, String latitude, String detectedAnimal)?
         success,
   }) {
-    return idle?.call(imageData, address, longitude, latitude, submitStatus);
+    return idle?.call(
+        imageData, description, address, longitude, latitude, submitStatus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List? imageData, String address, String longitude,
-            String latitude, SubmitStatus submitStatus)?
+    TResult Function(Uint8List? imageData, String description, String address,
+            String longitude, String latitude, SubmitStatus submitStatus)?
         idle,
-    TResult Function(Uint8List imageData, String address, String longitude,
-            String latitude, String detectedAnimal)?
+    TResult Function(Uint8List imageData, String description, String address,
+            String longitude, String latitude, String detectedAnimal)?
         success,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle(imageData, address, longitude, latitude, submitStatus);
+      return idle(
+          imageData, description, address, longitude, latitude, submitStatus);
     }
     return orElse();
   }
@@ -331,6 +378,7 @@ class _$_Idle extends _Idle with DiagnosticableTreeMixin {
 abstract class _Idle extends ReportState {
   const factory _Idle(
       {final Uint8List? imageData,
+      final String description,
       final String address,
       final String longitude,
       final String latitude,
@@ -339,6 +387,8 @@ abstract class _Idle extends ReportState {
 
   @override
   Uint8List? get imageData;
+  @override
+  String get description;
   @override
   String get address;
   @override
@@ -360,6 +410,7 @@ abstract class _$$_SuccessCopyWith<$Res> implements $ReportStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Uint8List imageData,
+      String description,
       String address,
       String longitude,
       String latitude,
@@ -377,6 +428,7 @@ class __$$_SuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object? imageData = null,
+    Object? description = null,
     Object? address = null,
     Object? longitude = null,
     Object? latitude = null,
@@ -387,6 +439,10 @@ class __$$_SuccessCopyWithImpl<$Res>
           ? _value.imageData
           : imageData // ignore: cast_nullable_to_non_nullable
               as Uint8List,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -412,6 +468,7 @@ class __$$_SuccessCopyWithImpl<$Res>
 class _$_Success extends _Success with DiagnosticableTreeMixin {
   const _$_Success(
       {required this.imageData,
+      required this.description,
       required this.address,
       required this.longitude,
       required this.latitude,
@@ -420,6 +477,8 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
 
   @override
   final Uint8List imageData;
+  @override
+  final String description;
   @override
   final String address;
   @override
@@ -431,7 +490,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ReportState.success(imageData: $imageData, address: $address, longitude: $longitude, latitude: $latitude, detectedAnimal: $detectedAnimal)';
+    return 'ReportState.success(imageData: $imageData, description: $description, address: $address, longitude: $longitude, latitude: $latitude, detectedAnimal: $detectedAnimal)';
   }
 
   @override
@@ -440,6 +499,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'ReportState.success'))
       ..add(DiagnosticsProperty('imageData', imageData))
+      ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('longitude', longitude))
       ..add(DiagnosticsProperty('latitude', latitude))
@@ -452,6 +512,8 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _$_Success &&
             const DeepCollectionEquality().equals(other.imageData, imageData) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
@@ -465,6 +527,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(imageData),
+      description,
       address,
       longitude,
       latitude,
@@ -479,43 +542,55 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Uint8List? imageData, String address,
-            String longitude, String latitude, SubmitStatus submitStatus)
+    required TResult Function(
+            Uint8List? imageData,
+            String description,
+            String address,
+            String longitude,
+            String latitude,
+            SubmitStatus submitStatus)
         idle,
-    required TResult Function(Uint8List imageData, String address,
-            String longitude, String latitude, String detectedAnimal)
+    required TResult Function(
+            Uint8List imageData,
+            String description,
+            String address,
+            String longitude,
+            String latitude,
+            String detectedAnimal)
         success,
   }) {
-    return success(imageData, address, longitude, latitude, detectedAnimal);
+    return success(
+        imageData, description, address, longitude, latitude, detectedAnimal);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Uint8List? imageData, String address, String longitude,
-            String latitude, SubmitStatus submitStatus)?
+    TResult? Function(Uint8List? imageData, String description, String address,
+            String longitude, String latitude, SubmitStatus submitStatus)?
         idle,
-    TResult? Function(Uint8List imageData, String address, String longitude,
-            String latitude, String detectedAnimal)?
+    TResult? Function(Uint8List imageData, String description, String address,
+            String longitude, String latitude, String detectedAnimal)?
         success,
   }) {
     return success?.call(
-        imageData, address, longitude, latitude, detectedAnimal);
+        imageData, description, address, longitude, latitude, detectedAnimal);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Uint8List? imageData, String address, String longitude,
-            String latitude, SubmitStatus submitStatus)?
+    TResult Function(Uint8List? imageData, String description, String address,
+            String longitude, String latitude, SubmitStatus submitStatus)?
         idle,
-    TResult Function(Uint8List imageData, String address, String longitude,
-            String latitude, String detectedAnimal)?
+    TResult Function(Uint8List imageData, String description, String address,
+            String longitude, String latitude, String detectedAnimal)?
         success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(imageData, address, longitude, latitude, detectedAnimal);
+      return success(
+          imageData, description, address, longitude, latitude, detectedAnimal);
     }
     return orElse();
   }
@@ -555,6 +630,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
 abstract class _Success extends ReportState {
   const factory _Success(
       {required final Uint8List imageData,
+      required final String description,
       required final String address,
       required final String longitude,
       required final String latitude,
@@ -563,6 +639,8 @@ abstract class _Success extends ReportState {
 
   @override
   Uint8List get imageData;
+  @override
+  String get description;
   @override
   String get address;
   @override

@@ -18,7 +18,6 @@ class ReportView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           CachedNetworkImage(
-            height: 300,
             fit: BoxFit.cover,
             imageUrl: report.imageUrl,
           ),

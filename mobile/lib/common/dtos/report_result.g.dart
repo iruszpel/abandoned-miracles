@@ -7,5 +7,5 @@ part of 'report_result.dart';
 // **************************************************************************
 
 ReportResult _$ReportResultFromJson(Map<String, dynamic> json) => ReportResult(
-      detectedAnimal: json['detectedAnimal'] as String,
+      animalType: json['animalType'] as String,
     );

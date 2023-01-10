@@ -21,6 +21,16 @@ class ReportCubit extends Cubit<ReportState> {
   final Client _client;
   final TelemetryClient _telemetryClient;
 
+  void onDescriptionChanged(String description) {
+    final state = this.state;
+
+    if (state is! _Idle) {
+      return;
+    }
+
+    emit(state.copyWith(description: description));
+  }
+
   Future<void> onAddressAdded(String address) async {
     final state = this.state;
 
@@ -70,10 +80,16 @@ class ReportCubit extends Cubit<ReportState> {
 
     try {
       final response = await _client.post(
-        Uri.parse('https://todo/report'),
+        Uri.parse(
+            'https://abandonedmiraclebackend.azurewebsites.net/client/create-report'),
+        headers: {
+          'Authorization': 'Bearer $_token',
+          'Content-Type': 'application/json',
+        },
         body: json.encode(
           ReportRequest(
-            imageData: base64.encode(state.imageData!),
+            base64Image: base64.encode(state.imageData!),
+            description: state.description,
             address: state.address,
             longitude: state.longitude,
             latitude: state.latitude,
@@ -87,10 +103,11 @@ class ReportCubit extends Cubit<ReportState> {
         emit(
           ReportState.success(
             imageData: state.imageData!,
+            description: state.description,
             address: state.address,
             longitude: state.longitude,
             latitude: state.latitude,
-            detectedAnimal: result.detectedAnimal,
+            detectedAnimal: 'Cat', // result.animalType,
           ),
         );
       } else {
@@ -123,6 +140,7 @@ enum SubmitStatus {
 class ReportState with _$ReportState {
   const factory ReportState.idle({
     Uint8List? imageData,
+    @Default('') String description,
     @Default('') String address,
     @Default('') String longitude,
     @Default('') String latitude,
@@ -131,6 +149,7 @@ class ReportState with _$ReportState {
 
   const factory ReportState.success({
     required Uint8List imageData,
+    required String description,
     required String address,
     required String longitude,
     required String latitude,

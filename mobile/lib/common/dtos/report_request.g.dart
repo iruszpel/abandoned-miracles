@@ -8,7 +8,8 @@ part of 'report_request.dart';
 
 Map<String, dynamic> _$ReportRequestToJson(ReportRequest instance) =>
     <String, dynamic>{
-      'imageData': instance.imageData,
+      'base64Image': instance.base64Image,
+      'description': instance.description,
       'address': instance.address,
       'longitude': instance.longitude,
       'latitude': instance.latitude,

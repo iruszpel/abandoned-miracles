@@ -28,14 +28,16 @@ class ReportResultPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Twoje zgłoszenie zostało przyjęte. Rozpoznane zwierze: $detectedAnimal',
+              'Twoje zgłoszenie zostało przyjęte',
               style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(height: 16),
-            Image.memory(
-              imageData,
-              height: 300,
-              fit: BoxFit.cover,
+            AspectRatio(
+              aspectRatio: 1,
+              child: Image.memory(
+                imageData,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(width: 16),
             TextFormField(
