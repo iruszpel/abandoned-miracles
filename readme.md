@@ -6,6 +6,9 @@ Celem projektu jest stworznie aplikacji ułatwiającej znalezienie poszukiwanych
 # Opis funkcjonalności
 Użytkownik poprzez aplikacje mobliną wysyła zgłoszenie w którego skad wchodzi: zdjęcie wykonane aparatem, opis, lokalizacja gdzie było widziane zwierze, i współrzedne geograficzne, które są automatycznie ustalane na podstawie lokalicaji. Wszytkie zgłosznia można przejrzeć poprzez aplicje internetową po zalogowaniu. W aplikacji internetowej można sprawdzić swoje zgłoszenia wraz z ich statusem.
 
+## Demo
+[Demo](https://youtu.be/vZZ12LQf1Q8)
+
 # Autorzy
 [Ignacy Ruszpel](https://github.com/iruszpel)\
 [Łukasz Sobczak](https://github.com/sobczal2)\
@@ -17,10 +20,8 @@ Użytkownik poprzez aplikacje mobliną wysyła zgłoszenie w którego skad wchod
 ## Architektura
 ![alt text](https://github.com/iruszpel/abandoned-miracles/blob/main/images/Architektura.png)
 
-## Demo
-[Demo](https://youtu.be/vZZ12LQf1Q8)
-
 ## Stos technologiczny
 React\
 Dotnet\
 Flutter
+
