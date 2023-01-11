@@ -14,5 +14,5 @@ public class Report : Entity
     public string ImageUrl { get; set; } = default!;
     public ReportAnimalType AnimalType { get; set; }
     public ReportStatus Status { get; set; }
-    
+    public bool Processed { get; set; }
 }

@@ -28,7 +28,7 @@ public class ImageService : IImageService
         
         var blobClient = containerClient.GetBlobClient(imageName);
         using var stream = new MemoryStream();
-        await image.SaveAsWebpAsync(stream);
+        await image.SaveAsPngAsync(stream);
         stream.Position = 0;
         await blobClient.UploadAsync(stream);
         return blobClient.Uri.ToString();
@@ -40,6 +40,6 @@ public class ImageService : IImageService
         var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         var result = new string(Enumerable.Repeat(chars, 30)
             .Select(s => s[random.Next(s.Length)]).ToArray());
-        return result + ".webp";
+        return result + ".png";
     }
 }

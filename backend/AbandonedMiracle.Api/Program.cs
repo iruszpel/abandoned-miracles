@@ -8,12 +8,13 @@ using AbandonedMiracle.Api.Exceptions;
 using AbandonedMiracle.Api.Helpers;
 using AbandonedMiracle.Api.Services;
 using AbandonedMiracle.Api.Settings;
+using AbandonedMiracle.Api.Tasks;
+using Azure.Identity;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -22,6 +23,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var jwtSettings = new JwtSettings();
+
+if (builder.Environment.IsProduction())
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri(builder.Configuration["KeyVault:Uri"]),
+        new DefaultAzureCredential());
+}
+
 builder.Configuration.GetSection(JwtSettings.Section).Bind(jwtSettings);
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.Section));
@@ -32,7 +41,6 @@ builder.Services.AddControllers()
     {
         opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -89,7 +97,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
 
 builder.Services.AddDbContext<AmDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services
@@ -103,12 +111,10 @@ builder.Services
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateAudience = true,
-            ValidateIssuer = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
         };
     });
 
@@ -121,17 +127,16 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
+builder.Services.AddHostedService<ClassifyPhotosTask>();
+
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-us");
 
 var app = builder.Build();
 
 app.UseMiddleware<RestExceptionMiddleware>();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseRouting();

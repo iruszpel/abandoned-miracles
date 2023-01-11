@@ -26,7 +26,7 @@ public class ClientController : AmController
     }
     
     [HttpPost("create-report"), Authorize(Roles = AmRole.RegularUser)]
-    public async Task<IActionResult> CreateReport([FromForm] CreateReport.Command command)
+    public async Task<IActionResult> CreateReport([FromBody] CreateReport.Command command)
     {
         return await HandleAsync(command);
     }
